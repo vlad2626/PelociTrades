@@ -1,5 +1,6 @@
 import requests, bs4
 from plyer import notification
+import os
 
 
 
@@ -31,13 +32,24 @@ def compare():
     trades=0
 
     trades= file.read()
+
     print ( numTrades, trades)
     x = int(trades)
 
 
+    file.close()
+
+    print(os.getcwd())
     if int(numTrades) == x :
-        print("No new Trades")
+        #print("No new Trades")
+        openfile = open("C:/Users/valmi/Documents/Code/Temp Files/output.txt","w")
+        openfile.write("No new trades for now.")
+        openfile.close()
     else:
+        openfile = open("C:/Users/valmi/Documents/Code/Temp Files/output.txt", "w")
+        openfile.write("New Trade Alert.")
+        openfile.close()
+
         notification.notify(
             title = 'testing',
             message = ' Nancy Pelocy made a Trade',
@@ -46,13 +58,14 @@ def compare():
 
         )
 
-        file.close()
-        updateFile(trades) #update the file witha new number
+
+        updateFile(x) #update the file witha new number
 
 
 def updateFile(trades):
-    file = open("CurrentTrades.py", "w")
-    file.write(int(trades))
+    file = open("CurrentTrades.py", "a")
+    file.write(trades)
+    file.close()
 
 
 
