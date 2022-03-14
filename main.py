@@ -50,11 +50,19 @@ def compare():
     file.close()
 
     print(os.getcwd())
-    if int(numTrades) > x :
+    if int(numTrades) >= x :
         #print("No new Trades")
         openfile = open("C:/Users/valmi/Documents/Code/Temp Files/output.txt","w")
         openfile.write("No new trades for now.")
         openfile.close()
+
+        notification.notify(
+            title='Nancy Pelocy Trade',
+            message=' no New Trades',
+            app_icon= None,
+            app_name = 'Nancy Pelocy Trades',
+            timeout=10
+        )
         madeTrade= False
     else:
         madeTrade = True
@@ -66,6 +74,7 @@ def compare():
             title = 'testing',
             message = ' Nancy Pelocy made a Trade',
             app_icon = None,
+            app_name = 'Nancy Pelocy Trades',
             timeout = 10
         )
         file = open("CurrentTrades.py", "w")
