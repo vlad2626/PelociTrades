@@ -4,7 +4,7 @@ import os
 
 
 
-numTrades = 0
+numTrades = 0 # number online in website
 
 def main():
     request()
@@ -28,24 +28,36 @@ def compile(pelosiSoup):
 
 
 def compare():
+
+    if(os.stat("CurrentTrades.py").st_size == 0):
+        print("file is empty ")
+        exit()
+
+
+
+
     file = open("CurrentTrades.py" , "r")
+
     trades=0
+    madeTrade = False
 
     trades= file.read()
 
-    print ( numTrades, trades)
-    x = int(trades)
+    print ("online", numTrades, " local", trades)
+    x = int(trades) # local number on file
 
 
     file.close()
 
     print(os.getcwd())
-    if int(numTrades) == x :
+    if int(numTrades) > x :
         #print("No new Trades")
         openfile = open("C:/Users/valmi/Documents/Code/Temp Files/output.txt","w")
         openfile.write("No new trades for now.")
         openfile.close()
+        madeTrade= False
     else:
+        madeTrade = True
         openfile = open("C:/Users/valmi/Documents/Code/Temp Files/output.txt", "w")
         openfile.write("New Trade Alert.")
         openfile.close()
@@ -55,17 +67,15 @@ def compare():
             message = ' Nancy Pelocy made a Trade',
             app_icon = None,
             timeout = 10
-
         )
+        file = open("CurrentTrades.py", "w")
+        file.write(numTrades)
+        file.close()
 
 
-        updateFile(x) #update the file witha new number
 
 
-def updateFile(trades):
-    file = open("CurrentTrades.py", "a")
-    file.write(trades)
-    file.close()
+
 
 
 
