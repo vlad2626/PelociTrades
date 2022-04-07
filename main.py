@@ -35,25 +35,25 @@ def compare():
 
 
 
-
-    file = open("CurrentTrades.py" , "r")
-
     trades=0
     madeTrade = False
 
+    file = open("CurrentTrades.py" , "r")
     trades= file.read()
+    file.close()
 
     print ("online", numTrades, " local", trades)
     x = int(trades) # local number on file
 
 
-    file.close()
+
 
     print(os.getcwd())
-    if int(numTrades) >= x :
+
+    if int(numTrades) < x :
         #print("No new Trades")
         openfile = open("C:/Users/valmi/Documents/Code/Temp Files/output.txt","w")
-        openfile.write("No new trades for now.")
+        openfile.write("Error in local Value :  Local Value more than online.")
         openfile.close()
 
         notification.notify(
@@ -64,6 +64,16 @@ def compare():
             timeout=10
         )
         madeTrade= False
+    elif int(numTrades) == x :
+        notification.notify(
+            title='Nancy Pelocy Trade',
+            message=' no New Trades',
+            app_icon= None,
+            app_name = 'Nancy Pelocy Trades',
+            timeout=10
+        )
+        madeTrade= False
+
     else:
         madeTrade = True
         openfile = open("C:/Users/valmi/Documents/Code/Temp Files/output.txt", "w")
